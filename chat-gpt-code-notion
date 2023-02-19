@@ -1,0 +1,29 @@
+<!-- Add this to the head section of your HTML page -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Add this to the body section of your HTML page -->
+<div id="btc-price"></div>
+
+<script>
+// Fetch Bitcoin price data from CoinMarketCap API
+function fetchBTCPrice() {
+  $.ajax({
+    url: "https://api.coinmarketcap.com/data-api/v3/cryptocurrency/detail?slug=bitcoin&slug=bitcoin&platforms=spot",
+    method: "GET",
+    dataType: "json",
+    success: function(response) {
+      // Parse price data from response
+      var btcPrice = response.data.priceQuote.latest;
+      
+      // Display price data on the page
+      $("#btc-price").text("BTC Price: $" + btcPrice);
+      
+      // Call this function again after 5 seconds to update the price
+      setTimeout(fetchBTCPrice, 5000);
+    }
+  });
+}
+
+// Call the fetchBTCPrice function to start fetching price data
+fetchBTCPrice();
+</script>
